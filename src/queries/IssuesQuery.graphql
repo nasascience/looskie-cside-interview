@@ -1,0 +1,7 @@
+query IssuesQuery($owner: String!, $name: String!) {
+	repository(owner: $owner, name: $name) {
+		...IssuesList_repository
+		name
+		description
+	}
+}

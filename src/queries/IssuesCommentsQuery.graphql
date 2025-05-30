@@ -1,0 +1,9 @@
+query IssuesCommentsQuery(
+	$owner: String!
+	$name: String!
+	$issueNumber: String!
+) {
+	repository(owner: $owner, name: $name) {
+		...IssuesComments_repository
+	}
+}
