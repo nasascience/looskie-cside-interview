@@ -5,7 +5,7 @@ import {
 	AccordionTrigger,
 } from "@radix-ui/react-accordion";
 import { ChatBubbleIcon } from "@radix-ui/react-icons";
-import { Box, Button, Flex, Text } from "@radix-ui/themes";
+import { Box, Button, Flex, Link, Text } from "@radix-ui/themes";
 import { formatDistanceToNow } from "date-fns";
 import { graphql, useLazyLoadQuery, usePaginationFragment } from "react-relay";
 import styles from "./comments.module.css";
@@ -15,7 +15,6 @@ export function IssuesComments({
 	name,
 	issueNumber,
 }: { owner: string; name: string; issueNumber: number }) {
-	console.log("Query inputs:", { owner, name, issueNumber });
 
 	const initialQueryData = useLazyLoadQuery<any>(
 		graphql` query IssuesCommentsQuery($owner: String!, $name: String!, $issueNumber: Int!){
@@ -66,13 +65,14 @@ export function IssuesComments({
 	if (!data) {
 		return <div className="text-red-500">Issue not found.</div>;
 	}
-	console.log("data comments", data);
 	const comments = data?.issue?.comments?.edges ?? [];
-	console.log("comments", comments);
+
 	if (!comments) return <div className="text-red-500">No comments found.</div>;
 
-	return (
-		<Box className="max-w-3xl mx-auto p-4" position="relative">
+	return (<>
+		{comments.length> 0 && 
+
+			<Box className="max-w-3xl mx-auto p-4" position="relative">
 			<Accordion
 				className={styles.AccordionRoot}
 				type="single"
@@ -92,7 +92,6 @@ export function IssuesComments({
 					<AccordionContent className={styles.AccordionContent}>
 						{comments.map((comment) => (
 							<Flex key={comment.node.id} direction="column" gap="4">
-								{/* Comments */}
 								<Flex gap="3" align="start">
 									<Box>
 										<img
@@ -112,9 +111,17 @@ export function IssuesComments({
 										style={{ flex: 1 }}
 									>
 										<Flex justify="between" align="center">
-											<Text size="2" weight="bold">
+											<Link
+												href={`https://github.com/${comment.node.author.login}`}
+												target="_blank"
+												className="text-blue-600 hover:underline"
+											>
+												@{comment.node.author.login}
+											</Link>
+											{/* <Text size="2" weight="bold">
 												{comment.node.author.login}
-											</Text>
+												
+											</Text> */}
 											<Text size="1" color="gray">
 												{formatDistanceToNow(new Date(comment.node.createdAt), {
 													addSuffix: true,
@@ -126,21 +133,19 @@ export function IssuesComments({
 								</Flex>
 							</Flex>
 						))}
-
 						<br />
 						<Flex direction="column" gap="4">
-							<Button
+							{data?.issue.comments.pageInfo.hasNextPage && <Button
 								onClick={() => loadNext(5)}
-								disabled={
-									isLoadingNext || !data?.issue.comments.pageInfo.hasNextPage
-								}
-							>
+								disabled={isLoadingNext }>
 								Load More
-							</Button>
+							</Button>}
 						</Flex>
 					</AccordionContent>
 				</AccordionItem>
 			</Accordion>
 		</Box>
+		}
+		</>
 	);
 }

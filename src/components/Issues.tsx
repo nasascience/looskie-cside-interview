@@ -13,10 +13,8 @@ import {
 import { formatDistanceToNow } from "date-fns";
 import { graphql, useLazyLoadQuery, usePaginationFragment } from "react-relay";
 import { IssuesComments } from "./IssuesComments";
-import styles from "./issues.module.css";
 
 export function IssuesList({ owner, name }: { owner: string; name: string }) {
-	console.log(owner, name);
 
 	const initialQueryData = useLazyLoadQuery<IssuesQuery>(
 		graphql`
@@ -84,15 +82,11 @@ export function IssuesList({ owner, name }: { owner: string; name: string }) {
 	if (!data) {
 		return <div className="text-red-500">Repository not found.</div>;
 	}
-
-	console.log("data issues", data);
 	const issues = data.issues.edges ?? [];
 
 	if (!issues) return <div className="text-red-500">No issues found.</div>;
 
-	console.log("issues", issues);
-	// 5. Render the UI
-	return (
+	return (<>
 		<Box className="max-w-3xl mx-auto p-4">
 			<Heading as="h1" size="5" mb="4" align="center">
 				GitHub Issues for {owner}/{initialQueryData?.repository?.name}
@@ -112,6 +106,9 @@ export function IssuesList({ owner, name }: { owner: string; name: string }) {
 										>
 											#{issue.node?.number}
 										</Badge>
+										<Badge>
+											Tag
+										</Badge>
 										<Text weight="bold">{issue.node?.title}</Text>
 									</Flex>
 								</Flex>
@@ -119,14 +116,14 @@ export function IssuesList({ owner, name }: { owner: string; name: string }) {
 								<Flex justify="between" gap="2" align="start">
 									{issue.node?.author && (
 										<Text size="1">
-											Opened by:{" "}
+											Opened by:
 											<Link
 												href={`https://github.com/${issue.node.author.login}`}
 												target="_blank"
 												className="text-blue-600 hover:underline"
 											>
 												@{issue.node.author.login}
-											</Link>{" "}
+											</Link>
 											{formatDistanceToNow(new Date(issue.node.createdAt), {
 												addSuffix: true,
 											})}
@@ -152,16 +149,18 @@ export function IssuesList({ owner, name }: { owner: string; name: string }) {
 			)}
 
 			<br />
+			
 			<Flex direction="column" gap="4">
-				<Button
+				{data?.issues?.pageInfo.hasNextPage && <Button
 					onClick={() => loadNext(10)}
 					disabled={isLoadingNext || !data?.issues?.pageInfo.hasNextPage}
 				>
-					{" "}
 					Load More
-				</Button>
+				</Button>}
 			</Flex>
-			{isLoadingNext && <Spinner className={styles.spinner} size="3" />}
+			
+			 {isLoadingNext && <Spinner className="spinner" size="3" />}  
 		</Box>
+		</>
 	);
 }

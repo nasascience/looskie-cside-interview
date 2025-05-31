@@ -1,0 +1,6 @@
+/* src/components/repoSearchForm.module.css */
+.container {
+  min-height: 100vh;
+  padding: var(--space-5);
+  background: linear-gradient(135deg, #1a0b2e 0%, #2e1a47 50%, #000000 100%);
+}
