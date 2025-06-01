@@ -12,6 +12,11 @@ export const Route = createRootRouteWithContext<{
 			<Theme appearance="dark">
 				<Outlet />
 				<TanStackRouterDevtools />
+				<img
+					className="bgImage"
+					src="https://media.daily.dev/image/upload/v1694596741/Glow_o9ehvn.svg"
+					alt="Gradient background"
+				></img>
 			</Theme>
 		</RelayEnvironmentProvider>
 	),

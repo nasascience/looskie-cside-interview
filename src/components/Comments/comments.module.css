@@ -1,0 +1,37 @@
+.AccordionRoot {
+	width: 100%;
+}
+
+.AccordionItem {
+	width: 100%;
+	border-top: 1px solid var(--gray-5);
+}
+
+.AccordionTrigger {
+	width: 100%;
+	padding: var(--space-3);
+	background: var(--gray-2);
+	border-radius: var(--radius-2);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	cursor: pointer;
+	transition: background 0.2s ease;
+}
+
+.AccordionTrigger:hover {
+	background: var(--gray-3);
+}
+
+.AccordionTriggerText {
+	flex: 1;
+	text-align: left;
+}
+
+.AccordionContent {
+	width: 100%;
+	padding: var(--space-3) var(--space-4);
+	background: var(--gray-1);
+	border-bottom-left-radius: var(--radius-2);
+	border-bottom-right-radius: var(--radius-2);
+}

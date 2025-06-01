@@ -1,8 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useCallback, useState } from "react";
-import { RepoInfo } from "../components/RepoInfo";
-import { RepoSearchForm } from "../components/RepoSearchForm";
-import type { IIssuesSearch } from "@/interfaces/issuesSearch";
+import { RepoSearchForm } from "../components/RepoSearchForm/RepoSearchForm";
 
 export const Route = createFileRoute("/")({
 	component: RouteComponent,
@@ -11,7 +8,7 @@ export const Route = createFileRoute("/")({
 function RouteComponent() {
 	return (
 		<div className="max-w-xl mx-auto mt-10">
-			<RepoSearchForm  />
+			<RepoSearchForm />
 		</div>
 	);
 }
