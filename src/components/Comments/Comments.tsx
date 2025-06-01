@@ -7,7 +7,7 @@ import {
 	AccordionTrigger,
 } from "@radix-ui/react-accordion";
 import { ChatBubbleIcon } from "@radix-ui/react-icons";
-import { Box, Button, Flex, Link, Text } from "@radix-ui/themes";
+import { Box, Button, Flex, Link, Spinner, Text } from "@radix-ui/themes";
 import { formatDistanceToNow } from "date-fns";
 import { useLazyLoadQuery, usePaginationFragment } from "react-relay";
 import styles from "./comments.module.css";
@@ -103,6 +103,7 @@ export function IssuesComments({
 											onClick={() => loadNext(5)}
 											disabled={isLoadingNext}
 										>
+											{isLoadingNext && <Spinner size="3" />}
 											Load More
 										</Button>
 									)}

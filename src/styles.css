@@ -1,20 +1,21 @@
 @import "tailwindcss";
 @import "@radix-ui/themes/styles.css";
 
-.spinner{
-    position: fixed;
-    left: 0;
-    top:0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
+.spinner {
+	position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
 }
 
-.bgImage{
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-    pointer-events: none;
+.bgImage {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	pointer-events: none;
+	z-index: -1;
 }

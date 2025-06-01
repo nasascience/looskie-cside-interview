@@ -68,13 +68,12 @@ export function RepoInfo({ owner, name }: { owner: string; name: string }) {
 				{error && <Text color="red">{error}</Text>}
 				<Flex gap="2" wrap="wrap">
 					{contributors?.map((contributor) => (
-						<Tooltip content={contributor.login}>
+						<Tooltip key={contributor.id} content={contributor.login}>
 							<a
 								href={`https://github.com/${contributor.login}`}
 								target="_blank"
 							>
 								<Avatar
-									key={contributor.id}
 									src={contributor.avatar_url}
 									fallback={contributor.login.charAt(0)}
 									size="1"

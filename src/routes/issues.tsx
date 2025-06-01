@@ -7,6 +7,7 @@ export const Route = createFileRoute("/issues")({
 });
 
 function IssuesListRoute() {
+	// Extracts the owner and name from the search parameters
 	const { owner, name } = useSearch({ strict: false }) as IIssuesSearch;
 
 	return <IssuesList owner={owner} name={name} />;
